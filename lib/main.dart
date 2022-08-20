@@ -89,14 +89,14 @@ class SquarePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round;
 
     var path = Path();
-    path.addRect(const Offset(0, 0) & size * value);
+    // path.addRect(const Offset(0, 0) & size * value);
 
-    // canvas.drawLine(Offset.zero, Offset(0, size.height * value), paint);
-    // canvas.drawLine(
-    //     Offset(0, size.height), Offset(size.width * value, size.height), paint);
+    canvas.drawLine(Offset.zero, Offset(0, size.height * value), paint);
+    canvas.drawLine(
+        Offset(0, size.height), Offset(size.width * value, size.height), paint);
     // canvas.drawLine(Offset.zero, Offset(0, size.height * value), paint);
     // canvas.drawLine(Offset(size.width, 0), Offset.zero, paint);
-    canvas.drawPath(path, paint);
+    // canvas.drawPath(path, paint);
   }
 
   @override
