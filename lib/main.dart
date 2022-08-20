@@ -27,8 +27,9 @@ class Body extends StatefulWidget {
   State<Body> createState() => _BodyState();
 }
 
-class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
+class _BodyState extends State<Body> with TickerProviderStateMixin {
   late AnimationController _animationController;
+  late Color _color;
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
       duration: const Duration(seconds: 2),
       value: 0.0,
     );
+    _color = Colors.white;
   }
 
   @override
@@ -56,8 +58,10 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
                     animation: _animationController,
                     builder: (context, child) {
                       return CustomPaint(
-                        painter:
-                            SquarePainter(value: _animationController.value),
+                        painter: SquarePainter(
+                          value: _animationController.value,
+                          color: _color,
+                        ),
                       );
                     }),
               ),
@@ -70,6 +74,20 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
           },
           child: const Text('Animate'),
         ),
+        ElevatedButton(
+          onPressed: () async {
+            setState(() {
+              _color = Colors.redAccent;
+            });
+
+            await Future.delayed(const Duration(milliseconds: 250), () {
+              setState(() {
+                _color = Colors.white;
+              });
+            });
+          },
+          child: const Text('Red'),
+        ),
       ],
     );
   }
@@ -77,13 +95,17 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin {
 
 class SquarePainter extends CustomPainter {
   final double value;
+  final Color? color;
 
-  SquarePainter({required this.value});
+  SquarePainter({
+    required this.value,
+    this.color,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
-      ..color = Colors.white
+      ..color = color ?? Colors.white
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
