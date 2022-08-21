@@ -48,6 +48,9 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
     double w = MediaQuery.of(context).size.width;
     return Column(
       children: [
+        const SizedBox(
+          height: 20,
+        ),
         Wrap(
           children: [
             for (var i = 0; i < 100; i++)
@@ -66,6 +69,9 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
                     }),
               ),
           ],
+        ),
+        const SizedBox(
+          height: 20,
         ),
         ElevatedButton(
           onPressed: () async {
@@ -106,7 +112,7 @@ class SquarePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
       ..color = color ?? Colors.white
-      ..strokeWidth = 3
+      ..strokeWidth = 2
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round;
 
@@ -116,7 +122,10 @@ class SquarePainter extends CustomPainter {
     canvas.drawLine(Offset.zero, Offset(0, size.height * value), paint);
     canvas.drawLine(
         Offset(0, size.height), Offset(size.width * value, size.height), paint);
-    // canvas.drawLine(Offset.zero, Offset(0, size.height * value), paint);
+    canvas.drawLine(Offset(size.width, size.height),
+        Offset(size.width, (size.height - size.height * value)), paint);
+    canvas.drawLine(Offset(size.width, 0),
+        Offset((size.width - size.width * value), 0), paint);
     // canvas.drawLine(Offset(size.width, 0), Offset.zero, paint);
     // canvas.drawPath(path, paint);
   }

@@ -26,7 +26,6 @@ class PaintingPageState extends State<PaintingPage>
 
   @override
   Widget build(BuildContext context) {
-    print(_animationController.value);
     return Scaffold(
       body: Center(
         child: Column(
